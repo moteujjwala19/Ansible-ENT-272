@@ -1,0 +1,11 @@
+---
+- name: undeployplaybook
+  hosts: all
+  tasks:
+    - name: undeploy server
+      shell: |
+        lsof -i:8080| grep -v "PID"|awk '{print $2}'|xargs kill
+        sleep 3
+        curl -vk http://localhost:8080
+      register: shell_output
+    - debug: var=shell_output.stdout

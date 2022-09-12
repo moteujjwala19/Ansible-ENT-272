@@ -1,0 +1,11 @@
+---
+- name: ansible_playbook1
+  hosts: all
+  tasks:
+    - name: Check system information
+      shell: |
+        nohup python3 /home/Lists/deploy.py > /dev/null 2>&1 &
+        sleep 3
+        curl -vk http://localhost:8080
+      register: shell_output
+    - debug: var=shell_output.stdout
